@@ -23,13 +23,13 @@ public class Tests {
 
 
     @Test
-    public void PlaceOrder() {
+    public void SucesfullyPlaceOrder_ValidCostumerInformation() {
         HomePage homePage = new HomePage(firefox);
         homePage.selectHotel();
         homePage.selectCheckInDate("06-12-2020");
         homePage.selectCheckOutDate("08-12-2020");
         AvalibleRooms avalibleRooms = homePage.SearchNow();
-        avalibleRooms.clickOnBookNowButton();
+        avalibleRooms.chooseRoomAndClikBookNowButton(1);
         roomsAndPriceSummary roomsAndPriceSummary = avalibleRooms.clickOnProocedToCheckOutButton();
         GuestInformationPage guestInformationPage = roomsAndPriceSummary.clickOnBookNowButton();
         guestInformationPage.clickOnGuestCheckout();
@@ -46,6 +46,29 @@ public class Tests {
 
     }
 
+    @Test
+    public void SucesfullyPlaceOrder_CostumerWithALreadyRegistered() {
+        HomePage homePage = new HomePage(firefox);
+        homePage.selectHotel();
+        homePage.selectCheckInDate("06-12-2020");
+        homePage.selectCheckOutDate("08-12-2020");
+        AvalibleRooms avalibleRooms = homePage.SearchNow();
+        avalibleRooms.chooseFrstAvailibleRoom();
+        roomsAndPriceSummary roomsAndPriceSummary = avalibleRooms.clickOnProocedToCheckOutButton();
+        GuestInformationPage guestInformationPage = roomsAndPriceSummary.clickOnBookNowButton();
+        guestInformationPage.clickOnGuestCheckout();
+        guestInformationPage.selectSocialTitle("Mrs.");
+        guestInformationPage.fillInFirstName("Anna");
+        guestInformationPage.fillInLastName("Best");
+        guestInformationPage.fillInEmail("tester.testczechitas1@gmail.com");
+        guestInformationPage.fillInMobilePhone(123456789);
+        guestInformationPage.clickOnSave();
+        PaymentInformation paymentInformation = guestInformationPage.clickOnProceedButton();
+        paymentInformation.checkAgreeWithTermsAndConditions();
+        OrderSummary orderSummary = paymentInformation.payByBankWIre();
+        orderSummary.clickOnConfirmOrder();
+
+    }
 
     @After
     public void CleanUp(){

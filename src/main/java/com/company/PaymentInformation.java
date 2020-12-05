@@ -23,7 +23,6 @@ public class PaymentInformation {
         myCursor.moveToElement(newCustomerRegisterButton).build().perform();
         System.out.println("Checking the checkbox 'I agree with terms'.");
         myCursor.click().build().perform();
-        //return new CustomRegisterPage(driver);
     }
 
     public OrderSummary payByBankWIre(){

@@ -5,7 +5,7 @@ import org.openqa.selenium.support.ui.*;
 public class roomsAndPriceSummary {
 
     WebDriver driver;
-    By proceedButton = By.xpath("//*[@id=\"collapse-shopping-cart\"]/div/div[2]/div[2]/div/a/span");
+    By proceedButton = By.xpath("//a[@title='Proceed to checkout']");
 
    
     public roomsAndPriceSummary(WebDriver webBrowser) {
