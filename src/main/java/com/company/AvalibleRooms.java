@@ -1,4 +1,5 @@
 package com.company;
+import java.util.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
@@ -12,6 +13,8 @@ public class AvalibleRooms {
         By deluxeAppartmentsRoom = By.xpath("//a[@data-id-product='2']");
         By fullNatureExperienceRoom = By.xpath("//a[@data-id-product='3']");
         By luxuryInTheWoodsRoom = By.xpath("//a[@data-id-product='4']");
+        By rooms = By.xpath("//span[text()='Book Now']");
+        By availibleRoomsPage = By.xpath("//span[text()='Search Rooms']");
 
         public AvalibleRooms(WebDriver webBrowser) {
             driver = webBrowser;
@@ -56,33 +59,16 @@ public class AvalibleRooms {
         }
 
         public void chooseFrstAvailibleRoom(){
-                if (driver.findElement(budgetCabinRoom).isDisplayed()){
-                        System.out.println("Choose room Budget Cabin and click Book Now button");
-                        WebDriverWait wait = new WebDriverWait(driver,10);
-                        wait.until(ExpectedConditions.elementToBeClickable(budgetCabinRoom));
-                        driver.findElement(budgetCabinRoom).click();
+                List<WebElement> availableRooms = driver.findElements(rooms);
+                if (availableRooms.size() > 0) {
+                        for (int i = 0; i < availableRooms.size(); i++) {
+                                availableRooms.get(i).click();
+                                break; }
+                }
+                else {
+                        System.out.println("No room available");
                 }
 
-                if (driver.findElement(deluxeAppartmentsRoom).isDisplayed()){
-                        System.out.println("Choose room Deluxe appartments and click Book Now button");
-                        WebDriverWait wait = new WebDriverWait(driver,10);
-                        wait.until(ExpectedConditions.elementToBeClickable(deluxeAppartmentsRoom));
-                        driver.findElement(deluxeAppartmentsRoom).click();
-                }
-
-                if (driver.findElement(fullNatureExperienceRoom).isDisplayed()){
-                        System.out.println("Choose room Full Nature Experience and click Book Now button");
-                        WebDriverWait wait = new WebDriverWait(driver,10);
-                        wait.until(ExpectedConditions.elementToBeClickable(fullNatureExperienceRoom));
-                        driver.findElement(fullNatureExperienceRoom).click();
-                }
-
-                if (driver.findElement(luxuryInTheWoodsRoom).isDisplayed()){
-                        System.out.println("Choose room Luxury in the woods and click Book Now button");
-                        WebDriverWait wait = new WebDriverWait(driver,10);
-                        wait.until(ExpectedConditions.elementToBeClickable(luxuryInTheWoodsRoom));
-                        driver.findElement(luxuryInTheWoodsRoom).click();
-                }
         }
 
 
@@ -92,5 +78,11 @@ public class AvalibleRooms {
 
         return new roomsAndPriceSummary(driver);
         }
+
+        public boolean isAvailibleRoomsPageDisplayed(){
+                System.out.println("Is available rooms page displayed");
+                return driver.findElement(availibleRoomsPage).isDisplayed();
+        }
+
 
 }

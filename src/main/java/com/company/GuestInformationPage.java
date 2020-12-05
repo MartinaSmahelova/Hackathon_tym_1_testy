@@ -13,6 +13,7 @@ public class GuestInformationPage {
     By costumerMobilePhone = By.id("phone_mobile");
     By proceedButton = By.xpath("//a[@title='Proceed to Payment']");
     By saveButton = By.id("submitGuestAccount");
+    By errorMessage = By.id("opc_account_errors");
 
 
     public GuestInformationPage(WebDriver driver) {
@@ -54,17 +55,6 @@ public class GuestInformationPage {
         driver.findElement(costumerMobilePhone).sendKeys(mobilePhone.toString());
     }
 
-    /*public void clickOnSave() throws InterruptedException {
-        System.out.println("Looking for 'Save' button, clicking on it.");
-        driver.findElement(By.id("submitGuestAccount")).click();
-    }
-
-    public boolean isGuestInformationDisplayed() {
-        System.out.println("Checking if 'Guest information' is displayed.");
-        WebElement guestInformation = driver.findElement(By.xpath("//a[@title='Proceed to Payment']"));
-        return guestInformation.isDisplayed();
-    }*/
-
     public void clickOnSave() {
         System.out.println("Looking for 'Save' button, clicking on it.");
         driver.findElement(saveButton).click();
@@ -93,4 +83,10 @@ public class GuestInformationPage {
 
        return new PaymentInformation(driver);
     }
+
+    public boolean isErrorMessageDisplayed(){
+        System.out.println("'Error message' is displayed");
+        return driver.findElement(errorMessage).isDisplayed();
+    }
+
 }
